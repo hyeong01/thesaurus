@@ -1,0 +1,1 @@
+winpty docker build -t server .

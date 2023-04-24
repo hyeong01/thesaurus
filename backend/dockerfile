@@ -1,0 +1,21 @@
+# Build stage
+FROM golang:1.17 AS build
+
+# Set working directory
+WORKDIR /app
+
+# Copy go.mod and go.sum files, and download dependencies
+COPY go.mod go.sum ./
+RUN go mod download
+
+# Copy the rest of the source code
+COPY . .
+
+# Build the application in cmd/server/main.go and put it in cmd/server
+RUN go build -o cmd/server cmd/server/main.go
+
+# Set working directory
+WORKDIR /app
+
+# Run the binary
+#CMD ["./cmd/server/main"]
